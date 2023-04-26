@@ -2,15 +2,16 @@
 import json
 from typing import Dict, List, NoReturn, Union
 
-from autogpt.agent.agent_manager import AgentManager
-from autogpt.commands.command import CommandRegistry, command
-from autogpt.commands.web_requests import scrape_links, scrape_text
-from autogpt.config import Config
-from autogpt.memory import get_memory
-from autogpt.processing.text import summarize_text
-from autogpt.prompts.generator import PromptGenerator
-from autogpt.speech import say_text
-from autogpt.url_utils.validators import validate_url
+from .agent.agent_manager import AgentManager
+from .commands.command import CommandRegistry, command
+from .commands.web_requests import scrape_links, scrape_text
+from .config import Config
+from .memory import get_memory
+from .processing.text import summarize_text
+from .prompts.generator import PromptGenerator
+from .speech import say_text
+from .url_utils.validators import validate_url
+from flask import Flask, request, jsonify
 
 CFG = Config()
 AGENT_MANAGER = AgentManager()
@@ -254,3 +255,5 @@ def delete_agent(key: str) -> str:
     """
     result = AGENT_MANAGER.delete_agent(key)
     return f"Agent {key} deleted." if result else f"Agent {key} does not exist."
+
+
